@@ -1,0 +1,9 @@
+.popup__name {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    border: none;
+}
