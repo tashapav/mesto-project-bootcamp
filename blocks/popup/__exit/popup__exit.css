@@ -10,6 +10,7 @@
 .popup__exit {
     height: 32px;
     width: 32px;
+    background-color: url('../../../images/close-icon.svg');
     position: absolute;
     top: -40px;
     right: -40px;

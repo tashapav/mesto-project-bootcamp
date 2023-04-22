@@ -2,4 +2,5 @@
     position: absolute;
     bottom: 30px;
     right: 20px;
+    background-image: url('../../../images/element-like-disabled.svg');
 }
