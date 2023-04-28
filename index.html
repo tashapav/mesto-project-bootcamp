@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="popup">
-        <div class="popup__wrapper popup_open">
+        <div class="popup__wrapper">
             <button class="popup__exit"></button>
             <form class="popup__form">
                 <h2 class="popup__title">Редактировать профиль</h2>
@@ -30,10 +30,12 @@
         <section class="profile">
             <img class="profile__avatar" src="./images/avatar.png" alt="аватарка"/>
             <div class="profile__profile-info">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button type="button" class="profile__edit-button">
-                    <img src="./images/edit-button.svg" alt="кнопка"/>
-                </button>
+                <div class="profile__info-edit">
+                    <h1 class="profile__name">Жак-Ив Кусто</h1>
+                    <input type="button" class="profile__edit-button">
+                        
+                </input>
+                </div>
                 <p class="profile__job">Исследователь океана</p>
             </div>
             <button type="button" class="profile__add-button">&#43;</button>
@@ -41,35 +43,45 @@
         <section class="elements">
             <div class="element">
                 <img class="element__picture" src="./images/karachaevsk.png" alt="картинка"/>
-                <h2 class="element__title">Карачаевск</h2>
-                <button class="element__like"></button>
+                <div class="element__info">
+                    <h2 class="element__title">Карачаевск</h2>
+                    <button class="element__like"><img src="./images/element-like-disabled.svg" alt="like-disabled"/></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__picture" src="./images/elbrus.png" alt="картинка"/>
-                <h2 class="element__title">Гора Эльбрус</h2>
-                <button class="element__like"></button>
+                <div class="element__info">
+                    <h2 class="element__title">Гора Эльбрус</h2>
+                    <button class="element__like"><img src="./images/element-like-disabled.svg" alt="like-disabled"/></button>
+                </div>
             </div>
             <div class="element">
                 <img class="element__picture" src="./images/dombay.png" alt="картинка"/>
-                <h2 class="element__title">Домбай</h2>
-                <button class="element__like"></button>
-            </div>
-            <div class="element">
-                <img class="element__picture" src="./images/elbrus.png" alt="картинка"/>
-                <h2 class="element__title">Гора Эльбрус</h2>
-                <button class="element__like"></button>
-            </div>
-            <div class="element">
-                <img class="element__picture" src="./images/dombay.png" alt="картинка"/>
-                <div class="element__wrapper">
+                <div class="element__info">
                     <h2 class="element__title">Домбай</h2>
-                    <button class="element__like"></button>
+                    <button class="element__like"><img src="./images/element-like-disabled.svg" alt="like-disabled"/></button>
+                </div>
+            </div>
+            <div class="element">
+                <img class="element__picture" src="./images/elbrus.png" alt="картинка"/>
+                <div class="element__info">
+                    <h2 class="element__title">Гора Эльбрус</h2>
+                    <button class="element__like"><img src="./images/element-like-disabled.svg" alt="like-disabled"/></button>
+                </div>
+            </div>
+            <div class="element">
+                <img class="element__picture" src="./images/dombay.png" alt="картинка"/>
+                <div class="element__info">
+                    <h2 class="element__title">Домбай</h2>
+                    <button class="element__like"><img src="./images/element-like-disabled.svg" alt="like-disabled"/></button>
                 </div>
             </div>
             <div class="element">
                 <img class="element__picture" src="./images/karachaevsk.png" alt="картинка"/>
-                <h2 class="element__title">Карачаево-Черкессия</h2>
-                <button class="element__like"></button>
+                <div class="element__info">
+                    <h2 class="element__title">Карачаево-Черкессия</h2>
+                    <button class="element__like"><img src="./images/element-like-disabled.svg" alt="like-disabled"/></button>
+                </div>
             </div>
         </section>
         <footer class="footer">

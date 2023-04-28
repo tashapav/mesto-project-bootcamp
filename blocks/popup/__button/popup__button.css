@@ -13,6 +13,9 @@
     border-radius: 2px;
     color: #fff;
     margin-top: 48px;
+    font-family: Inter, sans-serif;
+    font-weight: 400px;
+    font-size: 14px;
 }
 .popup__button:hover {
     opacity: 0.8;

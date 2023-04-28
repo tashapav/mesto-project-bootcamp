@@ -1,21 +1,24 @@
-@media (max-width: 879px) and (min-width: 320px) {
-    .profile__add-button {
-            max-width: 840px;
-            width: 100%;
-        }
-}
+
 .profile__add-button {
     width: 150px;
     height: 50px;
+    font-size: 24px;
     flex: 0 0 auto;
     padding: 0;
     background: none;
     color: inherit;
     border: 2px solid #FFFFFF;
-    font: inherit;
     cursor: pointer;
     outline: inherit;
+    margin-left: 85px;
 }
 .profile__add-button:hover {
     opacity: 0.6;
+}
+@media (max-width: 879px) and (min-width: 320px) {
+    .profile__add-button {
+        margin-left: 0;
+            max-width: 282px;
+            width: 100%;
+        }
 }

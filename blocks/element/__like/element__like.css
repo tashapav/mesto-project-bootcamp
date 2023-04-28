@@ -1,6 +1,12 @@
 .element__like {
-    position: absolute;
-    bottom: 30px;
-    right: 20px;
-    background-image: url('../../../images/element-like-disabled.svg');
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    border: none;
+    padding: 0;
+}
+.element__like:hover {
+    opacity: 50%;
 }
