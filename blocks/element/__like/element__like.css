@@ -6,6 +6,10 @@
     outline: inherit;
     border: none;
     padding: 0;
+    width: 22px;
+    height: 19px;
+    background-image: url('../../../images/element-like-disabled.svg');
+    background-size: contain;
 }
 .element__like:hover {
     opacity: 50%;

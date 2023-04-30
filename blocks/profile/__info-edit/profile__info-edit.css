@@ -1,3 +1,4 @@
 .profile__info-edit {
-    
+    display: flex;
+    align-items: center;
 }

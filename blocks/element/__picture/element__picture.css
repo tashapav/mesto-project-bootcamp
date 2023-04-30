@@ -2,4 +2,6 @@
     width: 282px;
     height: 282px;
     margin-bottom: 20px;
+    object-fit: cover;
+    object-position: center center;
 }

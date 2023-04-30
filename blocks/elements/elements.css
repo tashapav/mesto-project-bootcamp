@@ -1,7 +1,6 @@
 .elements {
     max-width: 880px;
     width: 100%;
-    min-height: 744px;
     padding-top: 47px;
     display: flex;
     align-content: center;
@@ -11,3 +10,5 @@
     column-gap: 17px;
     flex: 1 0 auto;
 }
+
+
