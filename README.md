@@ -11,4 +11,4 @@
 
 **Pages**
 
-* [Ссылка на Github Pages](https://)
+* [Ссылка на Github Pages](https://tashapav.github.io/mesto-project-bootcamp/)
