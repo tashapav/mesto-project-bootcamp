@@ -27,7 +27,6 @@ const initialCards = [
 
 
 const buttonEdit = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
 const elements = document.querySelector('.elements');
 const popupProfile = document.querySelector('.popup_profile');
 const buttonPopupProfileExit = popupProfile.querySelector('.popup__exit');
@@ -39,33 +38,39 @@ const popupPicture = document.querySelector('.popup_picture');
 const buttonPopupPictureExit = popupPicture.querySelector('.popup__exit');
 const profileEdit = popupProfile.querySelector('form[name="edit-info"]');
 const formNewElement = popupNewElement.querySelector('form[name="add-new-element"]');
+const popupProfileName = popupProfile.querySelector('input[name="name"]');
+const popupProfileJob = popupProfile.querySelector('input[name="job"]');
+const profileEditName = profileEdit.querySelector('input[name="name"]');
+const profileEditJob = profileEdit.querySelector('input[name="job"]');
+const profileName = profile.querySelector('.profile__name');
+const profileJob = profile.querySelector('.profile__job');
+const popupNewElementTitle = popupNewElement.querySelector('input[name="title"]');
+const popupNewElementLink = popupNewElement.querySelector('input[name="link"]');
+const popupPictureImage = popupPicture.querySelector('.popup__image');
+const popupPictureTitle = popupPicture.querySelector('.popup__title');
 
-function onLike(like) {
-    if (like.classList.contains('element__like_active')) {
-        like.classList.remove('element__like_active');
-    } else {
-        like.classList.add('element__like_active');
-    }
+
+
+function handleLike(like) {
+    like.classList.toggle('element__like_active');
 }
 
-function onRemove(newElement) {
+function handleRemove(newElement) {
     newElement.remove();
 }
 
-function openPopupPicture(element) {
-    popupPicture.classList.add('popup_opened');
-    popupPicture.querySelector('.popup__image').src = element.link;
-    popupPicture.querySelector('.popup__title').textContent = element.name;
-}
-
-function openPopupProfile() {
-    popupProfile.querySelector('input[name="name"]').value = profile.querySelector('.profile__name').textContent;
-    popupProfile.querySelector('input[name="job"]').value = profile.querySelector('.profile__job').textContent;
-    popupProfile.classList.add('popup_opened');
-}
-
-function openPopupNewElement() {
-    popupNewElement.classList.add('popup_opened');
+function openPopup(popup, element = {name: "", link: ""}) {
+    if (popup.classList.contains('popup_profile')) {
+        popupProfileName.value = profileName.textContent;
+        popupProfileJob.value = profileJob.textContent;
+        popupProfile.classList.add('popup_opened');
+    } else if (popup.classList.contains('popup_picture')) {
+        popupPicture.classList.add('popup_opened');
+        popupPictureImage.src = element.link;
+        popupPictureTitle.textContent = element.name;
+    } else {
+        popupNewElement.classList.add('popup_opened');
+    }
 }
 
 function closePopup(popup) {
@@ -73,38 +78,40 @@ function closePopup(popup) {
 }
 
 function addElement(element) {
-    let newElement = document.getElementById('template-element').content.querySelector('.element').cloneNode(true);
-    let like = newElement.querySelector('.element__like');
-    let elementDelete = newElement.querySelector('.element__delete');
-    let picture = newElement.querySelector('.element__picture');
-    newElement.querySelector('.element__title').textContent = element.name;
-    newElement.querySelector('.element__picture').src = element.link;
+    const newElement = document.getElementById('template-element').content.querySelector('.element').cloneNode(true);
+    const like = newElement.querySelector('.element__like');
+    const elementDelete = newElement.querySelector('.element__delete');
+    const picture = newElement.querySelector('.element__picture');
+    const title = newElement.querySelector('.element__title');
+    title.textContent = element.name;
+    picture.src = element.link;
+    picture.alt = element.name;
     elements.insertBefore(newElement, elements.firstChild);
 
-    like.addEventListener('click', () => onLike(like));
+    like.addEventListener('click', () => handleLike(like));
 
-    elementDelete.addEventListener('click', () => onRemove(newElement));
+    elementDelete.addEventListener('click', () => handleRemove(newElement));
 
-    picture.addEventListener('click', () => openPopupPicture(element));
+    picture.addEventListener('click', () => openPopup(popupPicture, element));
 }
 
 
 function submitProfile(event) {
     event.preventDefault();
-    profile.querySelector('.profile__name').textContent = profileEdit.querySelector('input[name="name"]').value;
-    profile.querySelector('.profile__job').textContent = profileEdit.querySelector('input[name="job"]').value;
+    profileName.textContent = profileEditName.value;
+    profileJob.textContent = profileEditJob.value;
     closePopup(popupProfile);
 }
 
 function submitNewElement(event) {
     event.preventDefault();
     info = {
-        name: popupNewElement.querySelector('input[name="title"]').value,
-        link: popupNewElement.querySelector('input[name="link"]').value
+        name: popupNewElementTitle.value,
+        link: popupNewElementLink.value
     }
     addElement(info);
-    popupNewElement.querySelector('input[name="title"]').value = "";
-    popupNewElement.querySelector('input[name="link"]').value = "";
+    popupNewElementTitle.value = "";
+    popupNewElementLink.value = "";
     closePopup(popupNewElement);
 }
 
@@ -117,8 +124,8 @@ function makeCards() {
 
 makeCards();
 
-buttonEdit.addEventListener('click', openPopupProfile);
-buttonAddElement.addEventListener('click', openPopupNewElement);
+buttonEdit.addEventListener('click', () => openPopup(popupProfile));
+buttonAddElement.addEventListener('click', () => openPopup(popupNewElement));
 buttonPopupProfileExit.addEventListener('click', () => closePopup(popupProfile));
 buttonPopupNewElementExit.addEventListener('click', () => closePopup(popupNewElement));
 buttonPopupPictureExit.addEventListener('click', () => closePopup(popupPicture));
