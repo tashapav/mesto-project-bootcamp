@@ -5,24 +5,25 @@ import avatar from './images/avatar.png'
 import logo from './images/logo.svg'
 import './styles/index.css';
 
-import { popupProfile, popupNewElement, popupPicture, buttonEdit, buttonAddElement, profileEdit, formNewElement } from './components/utils.js'
+import { popupProfile, popupNewElement, popupPicture, buttonEdit, buttonAddElement, profileEdit, formNewElement } from './components/constants.js'
 import { enableValidation } from './components/validate.js'
 import { makeCards } from './components/card.js'
-import { openPopup, closePopup, submitProfile, submitNewElement } from './components/modal.js'
+import { openPopup, handlePopupClose, submitProfile, submitNewElement } from './components/modal.js'
 
-document.addEventListener('keydown', (event) => {
-    if (event.code == "Escape") {
-        popupProfile.classList.remove('popup_opened');
-        popupNewElement.classList.remove('popup_opened');
-        popupPicture.classList.remove('popup_opened');
-    }});
 buttonEdit.addEventListener('click', () => openPopup(popupProfile));
 buttonAddElement.addEventListener('click', () => openPopup(popupNewElement));
 profileEdit.addEventListener('submit', submitProfile);
 formNewElement.addEventListener('submit', submitNewElement);
-popupProfile.addEventListener('click', (event) => closePopup(event, popupProfile));
-popupNewElement.addEventListener('click', (event) => closePopup(event, popupNewElement));
-popupPicture.addEventListener('click', (event) => closePopup(event, popupPicture));
+popupProfile.addEventListener('click', (event) => handlePopupClose(event, popupProfile));
+popupNewElement.addEventListener('click', (event) => handlePopupClose(event, popupNewElement));
+popupPicture.addEventListener('click', (event) => handlePopupClose(event, popupPicture));
 
 makeCards();
-enableValidation();
+enableValidation({
+    formSelector: '.form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_error',
+    errorClass: 'error_active'
+}); 

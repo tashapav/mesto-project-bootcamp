@@ -25,8 +25,8 @@ const initialCards = [
     }
 ]; 
 
-import { elements, popupPicture } from "./utils";
-import { openPopup } from "./modal";
+import { elements, popupPicture } from "./constants";
+import { openPopupPicture } from "./modal";
 
 function handleLike(like) {
     like.classList.toggle('element__like_active');
@@ -36,7 +36,7 @@ function handleRemove(newElement) {
     newElement.remove();
 }
 
-export function addElement(element) {
+function createCard(element) {
     const newElement = document.getElementById('template-element').content.querySelector('.element').cloneNode(true);
     const like = newElement.querySelector('.element__like');
     const elementDelete = newElement.querySelector('.element__delete');
@@ -45,13 +45,19 @@ export function addElement(element) {
     title.textContent = element.name;
     picture.src = element.link;
     picture.alt = element.name;
-    elements.insertBefore(newElement, elements.firstChild);
 
     like.addEventListener('click', () => handleLike(like));
 
     elementDelete.addEventListener('click', () => handleRemove(newElement));
 
-    picture.addEventListener('click', () => openPopup(popupPicture, element));
+    picture.addEventListener('click', () => openPopupPicture(popupPicture, element));
+    return newElement
+}
+
+
+export function addElement(element) {
+    const newElement = createCard(element);
+    elements.insertBefore(newElement, elements.firstChild);
 }
 
 
