@@ -1,4 +1,4 @@
-const initialCards = [
+/*const initialCards = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -23,17 +23,41 @@ const initialCards = [
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-]; 
+]; */
 
-import { elements, popupPicture } from "./constants";
-import { openPopupPicture } from "./modal";
+import { elements, popupPicture, popupRemoveCard, popupRemoveCardButton} from "./constants";
+import { openPopupPicture, user, openPopup, closePopup } from "./modal";
+import { putLike, unputLike, removeCard } from "./api";
 
-function handleLike(like) {
-    like.classList.toggle('element__like_active');
+function handleLike(element, id, likeNumber, like) {
+    const hasLike = element.querySelector('.element__like_active');
+    if (hasLike) {
+        unputLike(id)
+        .then((item) => {
+            likeNumber.textContent = item.likes.length;
+            like.classList.toggle('element__like_active');
+        })
+        .catch(err => console.log(err));
+    } else {
+        putLike(id)
+        .then((item) => {
+            likeNumber.textContent = item.likes.length;
+            like.classList.toggle('element__like_active');
+        })
+        .catch(err => console.log(err));
+    }
 }
 
-function handleRemove(newElement) {
-    newElement.remove();
+function handleRemove(newElement, id) {
+    openPopup(popupRemoveCard);
+    popupRemoveCardButton.addEventListener('click', () => {
+        removeCard(id)
+        .then(() => {
+            newElement.remove();
+            closePopup(popupRemoveCard);
+        })
+        .catch(err => console.log(err));
+    })
 }
 
 function createCard(element) {
@@ -42,15 +66,23 @@ function createCard(element) {
     const elementDelete = newElement.querySelector('.element__delete');
     const picture = newElement.querySelector('.element__picture');
     const title = newElement.querySelector('.element__title');
+    const likeNumber = newElement.querySelector('.element__like-number');
     title.textContent = element.name;
     picture.src = element.link;
     picture.alt = element.name;
+    likeNumber.textContent = element.likes.length;
 
-    like.addEventListener('click', () => handleLike(like));
+    like.addEventListener('click', () => handleLike(newElement, element._id, likeNumber, like));
 
-    elementDelete.addEventListener('click', () => handleRemove(newElement));
+    if (element.owner._id === user._id) {
+        elementDelete.addEventListener('click', () => handleRemove(newElement, element._id));
+    } else {
+        elementDelete.disabled = true;
+        elementDelete.style.display = 'none';
+    }
 
     picture.addEventListener('click', () => openPopupPicture(popupPicture, element));
+
     return newElement
 }
 
@@ -61,8 +93,9 @@ export function addElement(element) {
 }
 
 
-export const makeCards = () => {
-    for (let i = 0; i < initialCards.length; ++i) {
-        addElement(initialCards[i]);
+export const makeCards = (allCards) => {
+    console.log(allCards)
+    for (let i = 0; i < allCards.length; ++i) {
+        addElement(allCards[i]);
     }
 }

@@ -1,14 +1,15 @@
 import karachaevsk from './images/karachaevsk.png'
 import elbrus from './images/elbrus.png'
 import dombay from './images/dombay.png'
-import avatar from './images/avatar.png'
+import ava from './images/avatar.png'
 import logo from './images/logo.svg'
 import './styles/index.css';
 
-import { popupProfile, popupNewElement, popupPicture, buttonEdit, buttonAddElement, profileEdit, formNewElement } from './components/constants.js'
+import { popupProfile, popupNewElement, popupPicture, buttonEdit, buttonAddElement, profileEdit, formNewElement, popupNewAvatar, avatar, popupNewAvatarButton } from './components/constants.js'
 import { enableValidation } from './components/validate.js'
 import { makeCards } from './components/card.js'
-import { openPopup, handlePopupClose, submitProfile, submitNewElement } from './components/modal.js'
+import { openPopup, handlePopupClose, submitProfile, submitNewElement, setUserInfo, submitAvatar } from './components/modal.js'
+import { getAllCards, getUserInfo } from './components/api'
 
 buttonEdit.addEventListener('click', () => openPopup(popupProfile));
 buttonAddElement.addEventListener('click', () => openPopup(popupNewElement));
@@ -17,8 +18,10 @@ formNewElement.addEventListener('submit', submitNewElement);
 popupProfile.addEventListener('click', (event) => handlePopupClose(event, popupProfile));
 popupNewElement.addEventListener('click', (event) => handlePopupClose(event, popupNewElement));
 popupPicture.addEventListener('click', (event) => handlePopupClose(event, popupPicture));
+avatar.addEventListener('click', () => openPopup(popupNewAvatar));
+popupNewAvatarButton.addEventListener('click', submitAvatar);
 
-makeCards();
+
 enableValidation({
     formSelector: '.form',
     inputSelector: '.popup__input',
@@ -26,4 +29,12 @@ enableValidation({
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_error',
     errorClass: 'error_active'
+}); 
+
+const promises = [getUserInfo(), getAllCards()]
+
+Promise.all(promises)
+.then(([userInfo, allCards]) => {
+    setUserInfo(userInfo);
+    makeCards(allCards);
 }); 

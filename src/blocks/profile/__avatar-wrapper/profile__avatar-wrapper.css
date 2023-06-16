@@ -1,0 +1,23 @@
+.profile__avatar-wrapper {
+    height: 120px;
+    width: 120px;
+    flex: 0 0 auto;
+    margin-right: 30px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    background-color: #000000;
+    opacity: 1;
+}
+@media (max-width: 879px) and (min-width: 320px) {
+    .profile__avatar-wrapper {
+            margin-right: 0;
+            margin-top: 38px;
+            margin-bottom: 25px;
+        }
+}
+.profile__avatar-wrapper:hover {
+    opacity: 0.2;
+    background-image: url("../../../images/pencil.svg");
+    z-index: 10;
+}
