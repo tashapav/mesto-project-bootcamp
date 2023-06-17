@@ -46,15 +46,15 @@ export function submitProfile(event) {
     event.preventDefault();
     popupProfileButton.textContent = "Сохранение..."
     updateUserInfo(profileEditName.value, profileEditJob.value)
-    .then(() => {
+    .then((info) => {
         profileName.textContent = profileEditName.value;
         profileJob.textContent = profileEditJob.value;
-        popupProfileButton.textContent = "Сохранить"
         closePopup(popupProfile);
+        setUserInfo(info);
     })
+    .finally(() => popupProfileButton.textContent = "Сохранить")
     .catch((error) => {
         console.log(error);
-        popupProfileButton.textContent = "Сохранить"
     })
 }
 
@@ -64,17 +64,15 @@ export function submitNewElement(event) {
     addCard(popupNewElementTitle.value, popupNewElementLink.value)
     .then((info) => {
         addElement(info);
-        popupNewElementButton.textContent = "Сохранить"
         popupNewElementTitle.value = "";
         popupNewElementLink.value = "";
-        const formButton = popupNewElement.querySelector('.popup__button');
-        formButton.classList.add('popup__button_disabled');
-        formButton.disabled = true;
+        popupNewElementButton.classList.add('popup__button_disabled');
+        popupNewElementButton.disabled = true;
         closePopup(popupNewElement);
     })
+    .finally(() => popupNewElementButton.textContent = "Создать")
     .catch((error) => {
         console.log(error)
-        popupNewElementButton.textContent = "Сохранить"
     })
 }
 
@@ -83,15 +81,16 @@ export function submitAvatar(event) {
     popupNewAvatarButton.textContent = "Сохранение..."
     changeAvatar(popupNewAvatarInput.value)
     .then((info) => {
-        popupNewAvatarButton.textContent = "Сохранить"
         user.avatar = info.avatar;
         avatar.src = info.avatar;
         closePopup(popupNewAvatar);
         popupNewAvatarInput.value = "";
+        popupNewAvatarButton.classList.add('popup__button_disabled');
+        popupNewAvatarButton.disabled = true;
     })
+    .finally(() => popupNewAvatarButton.textContent = "Сохранить")
     .catch((error) => {
         console.log(error)
-        popupNewAvatarButton.textContent = "Сохранить"
     })
 }
 
@@ -100,6 +99,8 @@ export function setUserInfo(info) {
     user.avatar = info.avatar;
     user.name = info.name;
     user.about = info.about;
+    profileEditName.value = info.name;
+    profileEditJob.value = info.about;
     changeUserInfo(user);
 }
 

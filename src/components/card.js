@@ -49,15 +49,14 @@ function handleLike(element, id, likeNumber, like) {
 }
 
 function handleRemove(newElement, id) {
-    openPopup(popupRemoveCard);
-    popupRemoveCardButton.addEventListener('click', () => {
+    
         removeCard(id)
         .then(() => {
             newElement.remove();
-            closePopup(popupRemoveCard);
+
         })
         .catch(err => console.log(err));
-    })
+    
 }
 
 function createCard(element) {
@@ -74,8 +73,16 @@ function createCard(element) {
 
     like.addEventListener('click', () => handleLike(newElement, element._id, likeNumber, like));
 
+    let isLiked = element.likes.some(item => item._id == user._id);
+
+    if (isLiked) {
+        like.classList.add('element__like_active')
+    }
+
     if (element.owner._id === user._id) {
-        elementDelete.addEventListener('click', () => handleRemove(newElement, element._id));
+        elementDelete.addEventListener('click', () => {
+            handleRemove(newElement, element._id);
+        });
     } else {
         elementDelete.disabled = true;
         elementDelete.style.display = 'none';

@@ -6,7 +6,7 @@ const config = {
     }
 }
 
-const afterReqest = (res) => {
+const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
     }
@@ -19,7 +19,8 @@ export function getAllCards() {
             authorization: config.headers.authorization
         }
         })
-        .then(res => afterReqest(res));
+        .then(res => checkResponse(res))
+        .catch(err => console.log(err));
 }
 
 export function getUserInfo() {
@@ -28,7 +29,8 @@ export function getUserInfo() {
             authorization: config.headers.authorization
         }
         })
-        .then(res => afterReqest(res));
+        .then(res => checkResponse(res))
+        .catch(err => console.log(err));
 }
 
 export function updateUserInfo(name, about) {
@@ -40,7 +42,8 @@ export function updateUserInfo(name, about) {
             about: about
         })
         })
-        .then(res => afterReqest(res));;
+        .then(res => checkResponse(res))
+        .catch(err => console.log(err));
 }
 
 export function addCard(name, link) {
@@ -52,7 +55,8 @@ export function addCard(name, link) {
             link: link
         })
         })
-        .then(res => afterReqest(res));
+        .then(res => checkResponse(res))
+        .catch(err => console.log(err));
 }
 
 export function putLike(cardId) {
@@ -62,7 +66,8 @@ export function putLike(cardId) {
             authorization: config.headers.authorization,
         },
     })
-    .then(res => afterReqest(res));
+    .then(res => checkResponse(res))
+    .catch(err => console.log(err));
 }
 
 export function unputLike(cardId) {
@@ -72,16 +77,17 @@ export function unputLike(cardId) {
             authorization: config.headers.authorization,
         },
     })
-    .then(res => afterReqest(res)); 
+    .then(res => checkResponse(res))
+    .catch(err => console.log(err)); 
 }
 
 export function removeCard(cardId) {
     return fetch(`${config.baseUrl}/cards/${cardId}`, {
         method: 'DELETE',
-        headers: {
-            authorization: config.headers.authorization,
-        },
-    }); 
+        headers: config.headers,
+    })
+    .then(res => checkResponse(res))
+    .catch(err => console.log(err)); 
 }
 
 export function changeAvatar(link) {
@@ -92,5 +98,6 @@ export function changeAvatar(link) {
             avatar: link
         })
     })
-    .then(res => afterReqest(res));
+    .then(res => checkResponse(res))
+    .catch(err => console.log(err));
 }

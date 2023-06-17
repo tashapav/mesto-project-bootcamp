@@ -5,7 +5,7 @@ import ava from './images/avatar.png'
 import logo from './images/logo.svg'
 import './styles/index.css';
 
-import { popupProfile, popupNewElement, popupPicture, buttonEdit, buttonAddElement, profileEdit, formNewElement, popupNewAvatar, avatar, popupNewAvatarButton } from './components/constants.js'
+import { popupProfile, popupNewElement, popupPicture, buttonEdit, buttonAddElement, profileEdit, formNewElement, popupNewAvatar, avatar, popupNewAvatarButton, popupRemoveCard } from './components/constants.js'
 import { enableValidation } from './components/validate.js'
 import { makeCards } from './components/card.js'
 import { openPopup, handlePopupClose, submitProfile, submitNewElement, setUserInfo, submitAvatar } from './components/modal.js'
@@ -18,8 +18,11 @@ formNewElement.addEventListener('submit', submitNewElement);
 popupProfile.addEventListener('click', (event) => handlePopupClose(event, popupProfile));
 popupNewElement.addEventListener('click', (event) => handlePopupClose(event, popupNewElement));
 popupPicture.addEventListener('click', (event) => handlePopupClose(event, popupPicture));
+popupNewAvatar.addEventListener('click', (event) => handlePopupClose(event, popupNewAvatar));
+/*popupRemoveCard.addEventListener('click', (event) => handlePopupClose(event, popupRemoveCard));*/
 avatar.addEventListener('click', () => openPopup(popupNewAvatar));
 popupNewAvatarButton.addEventListener('click', submitAvatar);
+
 
 
 enableValidation({
